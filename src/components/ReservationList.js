@@ -96,82 +96,110 @@ const ReservationList = () => {
 
   return (
     <>
-      <h2>Liste des Réservations</h2>
-      <table>
+      <div className="bg-gray-100 p-4">
+      <h2 className="text-2xl font-semibold mb-4">Liste des Réservations</h2>
+      <table className="w-full border-collapse border border-gray-300">
         <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Date d'Examen</th>
-            <th>Actions</th>
+          <tr className="bg-gray-200">
+            <th className="border border-gray-300 p-2 text-center align-middle">First Name</th>
+            <th className="border border-gray-300 p-2 text-center align-middle">Last Name</th>
+            <th className="border border-gray-300 p-2 text-center align-middle">Date d'Examen</th>
+            <th className="border border-gray-300 p-2 text-center align-middle">Actions</th>
           </tr>
         </thead>
         <tbody>
           {reservations.map((reservation) => (
             <tr key={reservation.id}>
-              <td>
+              <td className="border border-gray-300 p-2 text-center align-middle">
                 {editingReservationId === reservation.id ? (
                   <input
                     type="text"
                     name="firstName"
                     value={editedReservation.firstName}
                     onChange={handleChange}
+                    className="w-full rounded p-2 border border-gray-300"
                   />
                 ) : (
                   reservation.firstName
                 )}
               </td>
-              <td>
+              <td className="border border-gray-300 p-2 text-center align-middle">
                 {editingReservationId === reservation.id ? (
                   <input
                     type="text"
                     name="lastName"
                     value={editedReservation.lastName}
                     onChange={handleChange}
+                    className="w-full rounded p-2 border border-gray-300"
                   />
                 ) : (
                   reservation.lastName
                 )}
               </td>
-              <td>
+              <td className="border border-gray-300 p-2 text-center align-middle">
                 {editingReservationId === reservation.id ? (
                   <input
                     type="datetime-local"
                     name="dateExamen"
                     value={editedReservation.dateExamen}
                     onChange={handleChange}
+                    className="w-full rounded p-2 border border-gray-300"
                   />
                 ) : (
                   reservation.dateExamen
                 )}
               </td>
-              <td>
+              <td className="border border-gray-300 p-2 text-center align-middle">
                 {editingReservationId === reservation.id ? (
                   <>
-                    <button onClick={() => handleSave(reservation.id)}>
+                    <button
+                      onClick={() => handleSave(reservation.id)}
+                      className="bg-blue-500 text-white px-4 py-1 rounded mr-2"
+                    >
                       Enregistrer
                     </button>
-                    <button onClick={handleCancel}>Annuler</button>
+                    <button
+                      onClick={handleCancel}
+                      className="bg-red-500 text-white px-4 py-1 rounded"
+                    >
+                      Annuler
+                    </button>
                   </>
                 ) : (
-                  <button onClick={() => handleModify(reservation.id)}>
-                    Modifier
-                  </button>
-                )}
-                <button onClick={() => handleDelete(reservation.id)}>
-                  Supprimer
-                </button>
-                <button onClick={() => handlePay(reservation.id)}>Payer</button>
-                {selectedReservationId === reservation.id && (
-                  <PaymentForm
-                  onClose={() => setSelectedReservationId(null)}
-                  />
+                  <>
+                    <button
+                      onClick={() => handleModify(reservation.id)}
+                      className="bg-green-500 text-white px-4 py-1 rounded mr-2"
+                    >
+                      Modifier
+                    </button>
+                    <button
+                      onClick={() => handleDelete(reservation.id)}
+                      className="bg-red-500 text-white px-4 py-1 rounded mr-2"
+                    >
+                      Supprimer
+                    </button>
+                    <button
+                      onClick={() => handlePay(reservation.id)}
+                      className="bg-blue-500 text-white px-4 py-1 rounded"
+                    >
+                      Payer
+                    </button>
+                    {selectedReservationId === reservation.id && (
+                      <div className="modal-overlay">
+                        <PaymentForm
+                          onClose={() => setSelectedReservationId(null)}
+                        />
+                      </div>
+                    )}
+                  </>
                 )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+    </div>
     </>
   );
 };
